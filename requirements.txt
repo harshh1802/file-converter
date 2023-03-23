@@ -3,3 +3,4 @@ xlwt
 pandas
 xlsxwriter
 streamlit
+xlrd
