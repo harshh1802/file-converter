@@ -3,3 +3,4 @@ xlwt
 pandas
 xlsxwriter
 io
+streamlit
