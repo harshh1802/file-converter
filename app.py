@@ -16,7 +16,7 @@ def process_symbol(symbol):
     strike = "{:.2f}".format(float(sym_sp[3]))
 
 
-    return ''.join(['OPTIDX',underlying,month,'  ',day,'  ',year,opt_type,strike])
+    return ''.join(['OPTIDX',underlying,month,'  ',day,' ',year,opt_type,strike])
 
 
 def calculate_qty(qty,bs):
