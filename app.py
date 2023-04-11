@@ -10,13 +10,13 @@ def process_symbol(symbol):
     # underlying = symbol[0:10] if symbol[0] == 'B' else symbol[0:6]
     underlying = sym_sp[0]
     month = sym_sp[1][-7:-4]
-    day = str(int(sym_sp[1][:-7]))
+    day = sym_sp[1][:-7]
     year = sym_sp[1][-4:]
     opt_type = sym_sp[2]
     strike = "{:.2f}".format(float(sym_sp[3]))
 
 
-    return ''.join(['OPTIDX',underlying,month,'  ',day,' ',year,opt_type,strike])
+    return ''.join(['OPTIDX',underlying,month,' ',day,' ',year,opt_type,strike])
 
 
 def calculate_qty(qty,bs):
