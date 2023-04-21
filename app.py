@@ -1,9 +1,12 @@
 import streamlit as st
 import pandas as pd
 from io import BytesIO
+from datetime import datetime
 
 
 def process_symbol(symbol):
+
+    day = datetime.now().day
     
     sym_sp = symbol.split()
 
@@ -15,8 +18,13 @@ def process_symbol(symbol):
     opt_type = sym_sp[2]
     strike = "{:.2f}".format(float(sym_sp[3]))
 
+    if day < 10:
+        return ''.join(['OPTIDX',underlying,month,'  ',str(int(day)),' ',year,opt_type,strike])
+    else:
+        return ''.join(['OPTIDX',underlying,month,' ',day,' ',year,opt_type,strike])
 
-    return ''.join(['OPTIDX',underlying,month,' ',day,' ',year,opt_type,strike])
+
+    
 
 
 def calculate_qty(qty,bs):
