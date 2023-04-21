@@ -1,9 +1,11 @@
+#Importing libraries
 import streamlit as st
 import pandas as pd
 from io import BytesIO
 from datetime import datetime
 
 
+#Function to reframe symbol
 def process_symbol(symbol):
 
     day = datetime.now().day
@@ -26,13 +28,14 @@ def process_symbol(symbol):
 
     
 
-
+#Calculate qty according to Buy or Sell
 def calculate_qty(qty,bs):
     if bs == 'B':
         return qty * 1
     else:
         return qty*(-1)
-    
+ 
+#Download excel file
 def download_excel(df):
     output = BytesIO()
     writer = pd.ExcelWriter(output, engine='xlsxwriter')
@@ -42,7 +45,7 @@ def download_excel(df):
     return output
 
 
-
+#--------------------Streamlit UI -------------------------------------------
 st.title('Sheet Converter')
 
 file = st.file_uploader('Upload CSV File')
