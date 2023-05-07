@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 from datetime import datetime
+import base64
 
 
 #Function to reframe symbol
@@ -36,13 +37,13 @@ def calculate_qty(qty,bs):
         return qty*(-1)
  
 #Download excel file
-def download_excel(df):
-    output = BytesIO()
-    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    df.to_excel(writer, sheet_name='Sheet1', index=False)
-    writer.save()
-    output.seek(0)
-    return output
+# def download_excel(df):
+#     output = BytesIO()
+#     writer = pd.ExcelWriter(output, engine='xlsxwriter')
+#     df.to_excel(writer, sheet_name='Sheet1', index=False)
+#     writer.save()
+#     output.seek(0)
+#     return output
 
 
 #--------------------Streamlit UI -------------------------------------------
@@ -74,7 +75,20 @@ if file:
     
     st.dataframe(new_df)
 
-    output_file = download_excel(new_df)
+    # output_file = download_excel(new_df)
 
 
-    st.download_button(label='Download', data=output_file, file_name='converted.xlsx', mime='application/vnd.ms-excel')
+if st.button('Download Excel'):
+    # Create a bytes buffer for the Excel file
+    excel_buffer = BytesIO()
+    excel_writer = pd.ExcelWriter(excel_buffer, engine='xlsxwriter')
+    new_df.to_excel(excel_writer, index=False, sheet_name='Sheet1')
+    excel_writer.save()
+    excel_data = excel_buffer.getvalue()
+
+    # Encode the bytes buffer data in base64
+    b64 = base64.b64encode(excel_data).decode()
+
+    # Create a download link
+    href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="my_data.xlsx">Download Excel File</a>'
+    st.markdown(href, unsafe_allow_html=True)
