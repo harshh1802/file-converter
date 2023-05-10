@@ -83,7 +83,7 @@ if st.button('Download Excel'):
     excel_buffer = BytesIO()
     excel_writer = pd.ExcelWriter(excel_buffer, engine='xlsxwriter')
     new_df.to_excel(excel_writer, index=False, sheet_name='Sheet1')
-    excel_writer.save()
+    excel_writer.close()
     excel_data = excel_buffer.getvalue()
 
     # Encode the bytes buffer data in base64
